@@ -1,0 +1,26 @@
+name: elasticsearch
+providers:
+  - render
+  - digitalocean
+  - docker
+services:
+  - type: docker
+    name: elasticsearch
+    dockerfile:
+      - FROM elasticsearch:8.10.2
+    docker_run_cmd: docker run -d -p 9200:9200 -p 9300:9300 -e
+      "ELASTIC_PASSWORD=your_password" -e "discovery.type=single-node"
+      elasticsearch:8.10.2
+    instance_count: 1
+    http_port: 9200
+    health_check:
+      port: 9200
+      http_path: /
+      initial_delay_seconds: 10
+    env_vars:
+      - key: ELASTIC_PASSWORD
+        value: your_password
+      - key: discovery.type
+        value: single-node
+      - key: PORT
+        value: 9200
