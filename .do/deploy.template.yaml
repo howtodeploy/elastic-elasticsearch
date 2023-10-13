@@ -1,0 +1,21 @@
+spec:
+  name: elasticsearch
+  services:
+    - name: elasticsearch
+      git:
+        repo_clone_url: https://github.com/howtodeploy/elastic-elasticsearch
+        branch: main
+      dockerfile_path: Dockerfile
+      instance_count: 1
+      http_port: 9200
+      health_check:
+        port: 9200
+        http_path: /
+        initial_delay_seconds: 10
+      envs:
+        - key: ELASTIC_PASSWORD
+          scope: RUN_AND_BUILD_TIME
+          value: your_password
+        - key: discovery.type
+          scope: RUN_AND_BUILD_TIME
+          value: single-node
