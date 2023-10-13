@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: elasticsearch
+    env: docker
+    plan: starter
+    numInstances: 1
+    healthCheckPath: /
+    envVars:
+      - key: ELASTIC_PASSWORD
+        value: your_password
+      - key: discovery.type
+        value: single-node
+      - key: PORT
+        value: 9200
